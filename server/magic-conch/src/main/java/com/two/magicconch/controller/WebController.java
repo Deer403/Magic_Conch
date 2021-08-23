@@ -19,4 +19,6 @@ public class WebController {
     public ProcessResult runCode(@RequestBody CodeModel codeModel)throws Exception{
         return runCodeService.runCode(codeModel.getType(), codeModel.getCode());
     }
+
 }
+

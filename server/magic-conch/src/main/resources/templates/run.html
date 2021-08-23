@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<select>
+  <option selected>Python</option>
+  <option>null</option>
+</select>
+<br/>
+<textarea id="code" style="height: 500px; width: 600px"></textarea>
+<button id="sub-btn" onclick="submit()">提交</button>
+<br/>
+<textarea id="output"></textarea>
+
+<script>
+  function submit() {
+    let data = document.querySelector("#code").value;
+
+    fetch("http://127.0.0.1:8090/run", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify({
+        code: data,
+        type: "Python"
+      })
+
+    }).then(response => response.json())
+            .then(json => {
+              console.log(json)
+              document.querySelector("#output").value = json.output;
+            });
+  }
+</script>
+</body>
+</html>

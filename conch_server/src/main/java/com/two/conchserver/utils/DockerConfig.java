@@ -1,4 +1,4 @@
-package com.two.magicconch.utils;
+package com.two.conchserver.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

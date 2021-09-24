@@ -1,13 +1,13 @@
-package com.two.magicconch;
+package com.two.conchserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MagicConchApplication {
+public class ConchServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MagicConchApplication.class, args);
+		SpringApplication.run(ConchServerApplication.class, args);
 	}
 
 }

@@ -1,7 +1,7 @@
-package com.two.magicconch.service;
+package com.two.conchserver.service;
 
-import com.two.magicconch.utils.ProcessResult;
-import com.two.magicconch.utils.Config;
+import com.two.conchserver.utils.ProcessResult;
+import com.two.conchserver.utils.Config;
 import org.springframework.stereotype.Service;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-package com.two.magicconch.utils;
+package com.two.conchserver.utils;
 
 import lombok.Data;
 

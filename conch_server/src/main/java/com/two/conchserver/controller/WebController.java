@@ -1,8 +1,8 @@
-package com.two.magicconch.controller;
+package com.two.conchserver.controller;
 
-import com.two.magicconch.model.CodeModel;
-import com.two.magicconch.service.RunCodeService;
-import com.two.magicconch.utils.ProcessResult;
+import com.two.conchserver.model.CodeModel;
+import com.two.conchserver.service.RunCodeService;
+import com.two.conchserver.utils.ProcessResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.two</groupId>
-	<artifactId>magic-conch</artifactId>
+	<artifactId>conch_server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>magic-conch</name>
-	<description>magic-conch</description>
+	<name>conch_server</name>
+	<description>conch_server</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

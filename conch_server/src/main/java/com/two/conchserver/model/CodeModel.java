@@ -1,4 +1,4 @@
-package com.two.magicconch.model;
+package com.two.conchserver.model;
 
 import lombok.Data;
 

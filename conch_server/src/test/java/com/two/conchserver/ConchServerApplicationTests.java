@@ -1,10 +1,10 @@
-package com.two.magicconch;
+package com.two.conchserver;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.dockerjava.api.model.Info;
-import com.two.magicconch.docker.DockerJavaClient;
-import com.two.magicconch.service.RunCodeService;
-import com.two.magicconch.utils.DockerConfig;
+import com.two.conchserver.docker.DockerJavaClient;
+import com.two.conchserver.service.RunCodeService;
+import com.two.conchserver.utils.DockerConfig;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.IOException;
 
 @SpringBootTest
-class MagicConchApplicationTests {
+class ConchServerApplicationTests {
 
 
 	@Autowired

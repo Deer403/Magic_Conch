@@ -2508,6 +2508,11 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
+codemirror@^5.41.0:
+  version "5.63.1"
+  resolved "https://registry.npmmirror.com/codemirror/download/codemirror-5.63.1.tgz?cache=0&sync_timestamp=1632931019390&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fcodemirror%2Fdownload%2Fcodemirror-5.63.1.tgz#b0b9e8444206fd6a43a58a4b31d5740bb891fa57"
+  integrity sha1-sLnoREIG/WpDpYpLMdV0C7iR+lc=
+
 collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.nlark.com/collection-visit/download/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
@@ -3156,6 +3161,11 @@ detect-node@^2.0.4:
   version "2.1.0"
   resolved "https://registry.nlark.com/detect-node/download/detect-node-2.1.0.tgz?cache=0&sync_timestamp=1621146954463&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdetect-node%2Fdownload%2Fdetect-node-2.1.0.tgz#c9c70775a49c3d03bc2c06d9a73be550f978f8b1"
   integrity sha1-yccHdaScPQO8LAbZpzvlUPl4+LE=
+
+diff-match-patch@^1.0.0:
+  version "1.0.5"
+  resolved "https://registry.nlark.com/diff-match-patch/download/diff-match-patch-1.0.5.tgz#abb584d5f10cd1196dfc55aa03701592ae3f7b37"
+  integrity sha1-q7WE1fEM0Rlt/FWqA3AVkq4/ezc=
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
@@ -8289,6 +8299,14 @@ vue-cli-plugin-element@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/vue-cli-plugin-element/download/vue-cli-plugin-element-1.0.1.tgz#34e58fb65b36cf59afaf14f503288e5e578b1554"
   integrity sha1-NOWPtls2z1mvrxT1AyiOXleLFVQ=
+
+vue-codemirror@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.nlark.com/vue-codemirror/download/vue-codemirror-4.0.6.tgz#b786bb80d8d762a93aab8e46f79a81006f0437c4"
+  integrity sha1-t4a7gNjXYqk6q45G95qBAG8EN8Q=
+  dependencies:
+    codemirror "^5.41.0"
+    diff-match-patch "^1.0.0"
 
 vue-eslint-parser@^7.0.0:
   version "7.11.0"

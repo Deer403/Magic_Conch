@@ -7,7 +7,9 @@ function resolve(dir) {
 module.exports = {
   lintOnSave: false,
   chainWebpack: (config) => {
-    config.resolve.alias.set("@$", resolve("src"));
+    config.resolve.alias
+      .set("@$", resolve("src"))
+      .set("styles", resolve("src/assets/styles"));
     // .set('styles', resolve('src/assets/styles'))
     // .set('common',resolve('src/common'))
   },

@@ -54,7 +54,7 @@ export default {
           value: "Python",
         },
       ],
-      value: "",
+      value: "JavaScript",
     };
   },
 };

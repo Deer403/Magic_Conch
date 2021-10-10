@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .ce-wrapper {
   height: 600px;
 }

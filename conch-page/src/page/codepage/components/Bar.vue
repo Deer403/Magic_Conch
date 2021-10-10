@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .bar-wrapper {
   height: 40px;
   background-color: #f7f7f7;

@@ -52,7 +52,8 @@ public class RunCodeService {
         //合并进程的标准输出和错误输出
         pb.redirectErrorStream(true);
         Process p = pb.start();
-
+        
+        //设定超时时间
         if (p.waitFor(5, TimeUnit.SECONDS)) {
             String result = null;
             //获取输入流
@@ -124,6 +125,7 @@ public class RunCodeService {
 
     //
     public String readAsString(InputStream input, Charset charset) throws IOException {
+        //创建一个32字节（默认大小）的字节数组缓冲区
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         byte[] buffer = new byte[102400];
         for (; ; ) {
@@ -131,8 +133,14 @@ public class RunCodeService {
             if (n == (-1)) {
                 break;
             }
+            //将输入流中的数据添加到字节数组缓冲区中
             output.write(buffer, 0, n);
         }
+//         for (int n = input.read(buffer);n != (-1);n=input.read(buffer)){
+//             //将输入流中的数据添加到字节数组缓冲区中
+//             output.write(buffer, 0, n);
+//         }
+        //使用对应字符集解码缓冲区中的字符串
         return output.toString(charset);
     }
 

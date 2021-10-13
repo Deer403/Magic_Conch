@@ -13,6 +13,7 @@ public class DockerConfig {
     public static String DOCKER_CERT_PATH;    // TLS 验证所需证书的路径
     public static String DOCKER_CONFIG;   //其他docker配置文件路径，这里我没有，所以填写了证书的路径
     public static String API_VERSION;    //docker的api版本
+    public static String WORKING_DIR;
 
     /*
        无法直接给静态变量注入值，这里使用@Value读取配置文件进行赋值
@@ -41,4 +42,7 @@ public class DockerConfig {
     public void setApiVersion(String apiVersion) {
         DockerConfig.API_VERSION = apiVersion;
     }
+
+    @Value("${WORKING_DIR}")
+    public void setRemote(String remote){DockerConfig.WORKING_DIR = remote;}
 }

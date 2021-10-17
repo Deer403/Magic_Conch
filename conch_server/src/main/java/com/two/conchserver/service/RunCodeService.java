@@ -4,6 +4,7 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.InspectVolumeResponse;
 import com.github.dockerjava.api.command.ListVolumesResponse;
+import com.github.dockerjava.api.model.Frame;
 import com.two.conchserver.docker.DockerJavaClient;
 import com.two.conchserver.utils.*;
 import org.apache.commons.io.FileUtils;
@@ -28,7 +29,7 @@ public class RunCodeService {
         this.config = config;
     }
 
-    //运行python文件
+    //本地运行python文件
     public ProcessResult runCode(String type, String code) throws IOException, InterruptedException {
 
         //1.首先需要将前端传进来的代码保存到本地
@@ -68,7 +69,7 @@ public class RunCodeService {
         }
     }
 
-    //连接docker运行python文件
+    //连接docker运行各类编程语言程序
     public ProcessResult runCodeDocker(LanguageDetails type,String code) throws IOException {
         //1.首先需要将前端传进来的代码保存到本地
         //获取系统缓存文件位置
@@ -101,29 +102,28 @@ public class RunCodeService {
             e.printStackTrace();
         }
         dockerClient.copyArchiveToContainerCmd(container.getId())
-                .withHostResource(pwd.getAbsolutePath()+"\\"+type.getFileName())
+                .withHostResource(pwd.getAbsolutePath()+"/"+type.getFileName())
                 .withRemotePath(DockerConfig.WORKING_DIR)
                 .exec();
-        //运行程序
-        commands = new String[]{"bash", "-c",
-                "cd "+DockerConfig.WORKING_DIR+" && ./"+type.getFileName()
+
+        //进入程序所在文件夹目录并运行程序
+        commands = new String[]{"bash","-c","cd "+DockerConfig.WORKING_DIR+" && "+type.getRunCommand(),
         };
-        dockerJavaClient.runCmd(dockerClient,container.getId(),commands);
+        String frames = dockerJavaClient.runCmd(dockerClient, container.getId(), commands);
 
         //删除创建的容器
-//        dockerJavaClient.remoteContainer(dockerClient, container.getId());
+        dockerJavaClient.remoteContainer(dockerClient, container.getId());
         try{
             //运行完毕后需删除生成的文件
-            System.out.println("[fileName]"+type.getFileName());
+            System.out.println("[deleteFile]"+type.getFileName());
             FileUtils.deleteDirectory(pwd);//删除文件夹
         }catch (Exception ex){
             throw new BusinessException(ErrorEnums.DELETE_FAILURE_ERROR);
         }
-
-            return  new ProcessResult(1,"fine");
+        return  new ProcessResult(1,frames);
     }
 
-    //
+
     public String readAsString(InputStream input, Charset charset) throws IOException {
         //创建一个32字节（默认大小）的字节数组缓冲区
         ByteArrayOutputStream output = new ByteArrayOutputStream();

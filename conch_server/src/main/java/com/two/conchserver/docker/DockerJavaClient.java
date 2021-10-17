@@ -3,10 +3,8 @@ package com.two.conchserver.docker;
 import com.alibaba.fastjson.JSONObject;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallback;
-import com.github.dockerjava.api.async.ResultCallbackTemplate;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.ExecCreateCmdResponse;
-import com.github.dockerjava.api.command.InspectExecResponse;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.Info;
@@ -16,9 +14,8 @@ import com.github.dockerjava.core.DockerClientConfig;
 import com.two.conchserver.utils.DockerConfig;
 import com.two.conchserver.utils.LanguageDetails;
 
-import java.io.Closeable;
-import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /*
     连接docker并执行一系列操作
@@ -74,40 +71,32 @@ public class DockerJavaClient {
     }
 
     //在容器中执行一条指令
-    public void runCmd(DockerClient dockerClient,String containerId,String[] commands){
+    public String runCmd(DockerClient dockerClient, String containerId, String[] commands){
         //创建指令
         ExecCreateCmdResponse execCreateCmdResponse = dockerClient.execCreateCmd(containerId)
                 .withAttachStdout(true)
                 .withAttachStderr(true)
                 .withCmd(commands).exec();
+        final String[] objEnd = new String[1];
+        try {
+            dockerClient.execStartCmd(execCreateCmdResponse.getId()).exec(new ResultCallback.Adapter<>(){
+                @Override
+                public void onNext(Frame object) {
+                    System.out.println("[Container指令运行中]");
+                    objEnd[0] = object.toString();
+                    System.out.println(object.toString());
+                }
 
-        //运行指令
-       dockerClient.execStartCmd(execCreateCmdResponse.getId()).exec(new ResultCallback<Frame>() {
-            @Override
-            public void onStart(Closeable closeable) {
-//                System.out.println("[Container运行指令]");
-            }
-
-            @Override
-            public void onNext(Frame object) {
-                System.out.println("[Container指令运行中]");
-                System.out.println(object);
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                System.out.println("[Container指令运行出错]：" + throwable.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-//                System.out.println("[Container指令运行结束]");
-            }
-
-            @Override
-            public void close() throws IOException {
-            }
-        });
+                @Override
+                public void onComplete() {
+                    System.out.println("[一条Container指令运行结束]");
+                    super.onComplete();
+                }
+            }).awaitCompletion(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return objEnd[0];
     }
 
 }

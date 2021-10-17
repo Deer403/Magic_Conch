@@ -5,56 +5,81 @@ public enum LanguageDetails {
     C{
         @Override
         public String getFileName() {
-            return "Main.c";
+            return "main.c";
         }
 
         @Override
         public String getImageName() {
             return "gcc-run:latest";
         }
+
+        @Override
+        public String getRunCommand() {
+            return "gcc "+getFileName()+" -o main && ./main";
+        }
     },
     PYTHON3{
         @Override
         public String getFileName() {
-            return "Main.py";
+            return "main.py";
         }
 
         @Override
         public String getImageName() {
             return "python-run:latest";
         }
+
+        @Override
+        public String getRunCommand() {
+            return "python "+getFileName();
+        }
     },
     CPP{
         @Override
         public String getFileName() {
-            return "Main.c";
+            return "main.cpp";
         }
 
         @Override
         public String getImageName() {
             return "gcc-run:latest";
         }
+
+        @Override
+        public String getRunCommand() {
+            return "g++ "+getFileName()+" -o main && ./main";
+        }
     },
     Java{
         @Override
         public String getFileName() {
-            return "Main.java";
+            return "main.java";
         }
 
         @Override
         public String getImageName() {
             return "openjdk:latest";
         }
+
+        @Override
+        public String getRunCommand() {
+            return "java "+getFileName();
+        }
     },
     Go{
         @Override
         public String getFileName() {
-            return "Main.go";
+            return "main.go";
         }
 
         @Override
         public String getImageName() {
             return "golang:latest";
+        }
+
+        @Override
+        public String getRunCommand() {
+            return "go run "+getFileName();
         }
 
     };
@@ -68,4 +93,8 @@ public enum LanguageDetails {
     public String getContainerName() {
         return this.name() + "_" + Utils.getRandomCode(4);
     }
+    //容器运行程序命令
+    public abstract String getRunCommand();
+
 }
+

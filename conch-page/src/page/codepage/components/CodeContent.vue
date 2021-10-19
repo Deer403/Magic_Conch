@@ -2,7 +2,7 @@
   <div class="content-wrapper">
     <div v-for="(msg, index) in msgs" :key="index" class="msg-item">
       <span>console>></span>
-      <span>{{msg}}</span>
+      <span>{{ msg }}</span>
     </div>
   </div>
 </template>
@@ -12,8 +12,19 @@ export default {
   name: "CodeContent",
   data: () => {
     return {
-      msgs: ["正在连接服务器", "已连接上服务器...", "连接被意外关闭..."],
+      msgs: [],
     };
+  },
+  methods: {
+    pushMsg(msg) {
+      this.msgs.push(msg);
+    },
+    resetMsg() {
+      this.msgs = [];
+    },
+    initMsg() {
+      this.msgs = ["正在连接服务器", "已连接上服务器..."];
+    },
   },
 };
 </script>
@@ -26,7 +37,7 @@ export default {
   font-size: 16px;
 }
 
-.msg-item{
-    margin: 5px 0px;
+.msg-item {
+  margin: 5px 0px;
 }
 </style>

@@ -50,7 +50,7 @@ public enum LanguageDetails {
             return "g++ "+getFileName()+" -o main && ./main";
         }
     },
-    Java{
+    JAVA{
         @Override
         public String getFileName() {
             return "main.java";

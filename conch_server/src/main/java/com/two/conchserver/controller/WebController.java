@@ -6,6 +6,8 @@ import com.two.conchserver.utils.LanguageDetails;
 import com.two.conchserver.utils.ProcessResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+
 @RestController
 @CrossOrigin("*")
 public class WebController {
@@ -19,6 +21,12 @@ public class WebController {
     @PostMapping(value = "/run")
     public ProcessResult runCode(@RequestBody CodeVo codeVo)throws Exception{
        return runCodeService.runCodeDocker(LanguageDetails.valueOf(codeVo.getType()), codeVo.getCode());
+    }
+
+    @RequestMapping("/codetype")
+    public String[] codeType(){
+        String typeList[] = {"PYTHON3","CPP","JAVA","GOLANG"};
+        return typeList;
     }
 }
 

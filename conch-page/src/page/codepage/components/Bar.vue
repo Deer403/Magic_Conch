@@ -8,23 +8,26 @@
     >
       <el-col :xs="10" :md="3">
         <el-select
-          v-model="value"
+          v-model="type"
           placeholder="请选择"
           size="small"
           class="lang-select"
+          @change="changeType"
         >
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.value"
-            :value="item.value"
+            v-for="item in codeType"
+            :key="item"
+            :label="item"
+            :value="item"
           >
           </el-option>
         </el-select>
       </el-col>
       <el-col :xs="12" :md="4" class="bar-btns">
         <el-button type="warning" size="small" plain>重置</el-button>
-        <el-button type="primary" size="small" plain>运行</el-button>
+        <el-button type="primary" size="small" @click="runCode" plain
+          >运行</el-button
+        >
         <el-button type="success" size="small" plain>提交</el-button>
       </el-col>
     </el-row>
@@ -33,29 +36,36 @@
 
 <script>
 import "element-ui/lib/theme-chalk/display.css";
+
+import { mapGetters } from "vuex";
+
 export default {
   name: "CodeBar",
+  computed: { ...mapGetters(["getCode", "getStatus"]) },
+  props: {
+    codeType: Array,
+  },
+  mounted() {
+    this.value = this.codeType[0];
+  },
   data: () => {
     return {
-      options: [
-        {
-          value: "JavaScript",
-        },
-        {
-          value: "Java",
-        },
-        {
-          value: "Go",
-        },
-        {
-          value: "C++",
-        },
-        {
-          value: "Python",
-        },
-      ],
-      value: "JavaScript",
+      // options: ["JavaScript", "Java", "Go", "C++", "Python"],
+      type: "",
+      lastType: "",
     };
+  },
+  methods: {
+    runCode() {
+      this.$emit("clickRunCode");
+    },
+    changeType(newType) {
+      if (this.getStatus) {
+        localStorage.setItem(this.lastType, this.getCode);
+      }
+      this.$emit("changeType", newType);
+      this.lastType = newType;
+    },
   },
 };
 </script>
@@ -85,5 +95,4 @@ export default {
   display: flex;
   justify-content: right;
 }
-
 </style>

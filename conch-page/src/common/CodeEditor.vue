@@ -1,17 +1,33 @@
 <template>
   <div class="codeeditor-wrapper">
-    <codemirror :options="cmOptions" />
+    <codemirror
+      ref="cmEditor"
+      :options="cmOptions"
+      :value="code"
+      @input="codeChange"
+    />
   </div>
 </template>
 
 <script>
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/idea.css";
-import 'codemirror/mode/javascript/javascript.js';
+
+//引入编辑器设置
+import "@/utils/cm-setting.js"
+
 import { codemirror } from "vue-codemirror";
+import { TypeMap } from "@/utils/template";
 
 export default {
   name: "CodeEditor",
+  props: {
+    code: String,
+    type: String,
+  },
+  watch: {
+    type: function (val) {
+      this.$set(this.cmOptions,"mode",TypeMap[val])
+    },
+  },
   components: {
     codemirror,
   },
@@ -19,7 +35,7 @@ export default {
     return {
       cmOptions: {
         tabSize: 4,
-        mode: "text/javascript",
+        mode: "",
         theme: "idea",
         lineNumbers: true,
         line: true,
@@ -30,6 +46,12 @@ export default {
         autoRefresh: true, // 自动刷新
       },
     };
+  },
+  methods: {
+    codeChange(newCode) {
+      // console.log(newCode);
+      this.$store.commit("changeCode", newCode);
+    },
   },
 };
 </script>

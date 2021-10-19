@@ -1,8 +1,6 @@
 package com.two.conchserver.utils;
 
-import lombok.Data;
 
-@Data
 public class ProcessResult {
     private int exitCode;
     private String output;
@@ -12,4 +10,11 @@ public class ProcessResult {
         this.output = output;
     }
 
+    public int getExitCode() {
+        return exitCode;
+    }
+
+    public String getOutput() {
+        return output;
+    }
 }

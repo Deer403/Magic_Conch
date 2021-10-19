@@ -1,6 +1,6 @@
 package com.two.conchserver.controller;
 
-import com.two.conchserver.model.CodeModel;
+import com.two.conchserver.model.CodeVo;
 import com.two.conchserver.service.RunCodeService;
 import com.two.conchserver.utils.LanguageDetails;
 import com.two.conchserver.utils.ProcessResult;
@@ -17,9 +17,8 @@ public class WebController {
     }
 
     @PostMapping(value = "/run")
-    public ProcessResult runCode(@RequestBody CodeModel codeModel)throws Exception{
-//        return runCodeService.runCode(codeModel.getType(), codeModel.getCode());
-       return runCodeService.runCodeDocker(LanguageDetails.valueOf(codeModel.getType()),codeModel.getCode());
+    public ProcessResult runCode(@RequestBody CodeVo codeVo)throws Exception{
+       return runCodeService.runCodeDocker(LanguageDetails.valueOf(codeVo.getType()), codeVo.getCode());
     }
 }
 

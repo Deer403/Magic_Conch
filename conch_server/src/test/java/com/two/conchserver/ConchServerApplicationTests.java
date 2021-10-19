@@ -2,13 +2,11 @@ package com.two.conchserver;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.command.ListContainersCmd;
 import com.github.dockerjava.api.model.Container;
 import com.github.dockerjava.api.model.Info;
 import com.two.conchserver.docker.DockerJavaClient;
-import com.two.conchserver.model.CodeModel;
+import com.two.conchserver.model.CodeVo;
 import com.two.conchserver.service.RunCodeService;
-import com.two.conchserver.utils.DockerConfig;
 
 import com.two.conchserver.utils.LanguageDetails;
 import com.two.conchserver.utils.ProcessResult;
@@ -25,12 +23,6 @@ class ConchServerApplicationTests {
 
 	@Autowired
 	private RunCodeService runCodeService;
-
-	@Test
-	void contextLoads() throws IOException, InterruptedException {
-		String code = "print(\"hello world\")";
-		System.out.println(runCodeService.runCode("python",code).getOutput());
-	}
 
 	@Test
 	void testDockerClient(){
@@ -65,11 +57,11 @@ class ConchServerApplicationTests {
 				"   cout << \"Hello World\"; // 输出 Hello World\n" +
 				"   return 0;\n" +
 				"}";
-		CodeModel codeModel = new CodeModel();
-		codeModel.setCode(cppCode);
-		codeModel.setType("CPP");
+		CodeVo codeVo = new CodeVo();
+		codeVo.setCode(cppCode);
+		codeVo.setType("CPP");
 		LanguageDetails type = LanguageDetails.valueOf("CPP");
-		ProcessResult processResult = runCodeService.runCodeDocker(LanguageDetails.valueOf(codeModel.getType()),codeModel.getCode());
+		ProcessResult processResult = runCodeService.runCodeDocker(LanguageDetails.valueOf(codeVo.getType()), codeVo.getCode());
 		System.out.println(processResult);
 	}
 

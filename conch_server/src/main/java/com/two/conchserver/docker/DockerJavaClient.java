@@ -5,6 +5,7 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallback;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.ExecCreateCmdResponse;
+import com.github.dockerjava.api.command.ExecStartCmd;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.api.model.Info;
@@ -14,6 +15,11 @@ import com.github.dockerjava.core.DockerClientConfig;
 import com.two.conchserver.utils.DockerConfig;
 import com.two.conchserver.utils.LanguageDetails;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -75,11 +81,27 @@ public class DockerJavaClient {
         //创建指令
         ExecCreateCmdResponse execCreateCmdResponse = dockerClient.execCreateCmd(containerId)
                 .withAttachStdout(true)
+                .withAttachStdin(true)
                 .withAttachStderr(true)
                 .withCmd(commands).exec();
         final String[] objEnd = new String[1];
         try {
-            dockerClient.execStartCmd(execCreateCmdResponse.getId()).exec(new ResultCallback.Adapter<>(){
+
+            ExecStartCmd execStartCmd = dockerClient.execStartCmd(execCreateCmdResponse.getId());
+            String in ="rock";
+            InputStream inputStream = new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8));
+            byte[] bytes = new byte[1024];
+            int count = 0;
+            int index = 0;
+            // Continue writing bytes until there are no more
+            while (count == 0) {
+                if (index == count) {
+                    count = inputStream.read(bytes);
+                    index = 0;
+                }
+            }
+            //运行命令
+            execStartCmd.exec(new ResultCallback.Adapter<>(){
                 @Override
                 public void onNext(Frame object) {
                     System.out.println("[Container指令运行中]");
@@ -92,8 +114,10 @@ public class DockerJavaClient {
                     System.out.println("[一条Container指令运行结束]");
                     super.onComplete();
                 }
-            }).awaitCompletion(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+
+            }).awaitCompletion(60, TimeUnit.SECONDS);
+
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
         return objEnd[0];

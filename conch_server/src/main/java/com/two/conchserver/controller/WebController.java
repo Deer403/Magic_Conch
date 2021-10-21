@@ -6,7 +6,7 @@ import com.two.conchserver.utils.LanguageDetails;
 import com.two.conchserver.utils.ProcessResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -24,9 +24,8 @@ public class WebController {
     }
 
     @RequestMapping("/codetype")
-    public String[] codeType(){
-        String typeList[] = {"PYTHON3","CPP","JAVA","GOLANG"};
-        return typeList;
+    public List<LanguageDetails> codeType(){
+        return List.of(LanguageDetails.values());
     }
 }
 

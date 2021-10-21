@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .content-wrapper {
   padding-top: 10px;
   padding-left: 20px;

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CodeBar from "./components/Bar";
+import CodeBar from "./components/CodeBar";
 import CodeElement from "./components/CodeElement";
 import CodeContent from "./components/CodeContent";
 

@@ -40,7 +40,7 @@ class ConchServerApplicationTests {
 
 	//测试docker创建容器运行代码
 	@Test
-	void testCreactDocker() throws IOException {
+	void testCreactDocker() throws IOException, InterruptedException {
 		String pyCode = "print(\"hello world\")";
 		String goCode = "package main\n" +
 				"\n" +
@@ -79,7 +79,5 @@ class ConchServerApplicationTests {
 			dockerClient.removeContainerCmd(container.getId()).exec();
 		});
 		System.out.println("=============完毕=================");
-
-
 	}
 }

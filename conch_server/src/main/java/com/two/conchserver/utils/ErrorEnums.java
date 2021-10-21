@@ -4,7 +4,8 @@ package com.two.conchserver.utils;
 public enum ErrorEnums {
 
     CODE_TYPE_ERROR("parameter error","The programming language type is entered incorrectly"),
-    DELETE_FAILURE_ERROR("file","Delete file failure");
+    DELETE_FAILURE_ERROR("file","Delete file failure"),
+    TIME_OUT("time out","programming wait time is long");
 
     private String title;
     private String message;

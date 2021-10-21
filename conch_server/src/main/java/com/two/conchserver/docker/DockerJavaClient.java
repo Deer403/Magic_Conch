@@ -15,11 +15,7 @@ import com.github.dockerjava.core.DockerClientConfig;
 import com.two.conchserver.utils.DockerConfig;
 import com.two.conchserver.utils.LanguageDetails;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -77,7 +73,7 @@ public class DockerJavaClient {
     }
 
     //在容器中执行一条指令
-    public String runCmd(DockerClient dockerClient, String containerId, String[] commands){
+    public String runCmd(DockerClient dockerClient, String containerId, String[] commands) throws IOException, InterruptedException {
         //创建指令
         ExecCreateCmdResponse execCreateCmdResponse = dockerClient.execCreateCmd(containerId)
                 .withAttachStdout(true)
@@ -85,41 +81,22 @@ public class DockerJavaClient {
                 .withAttachStderr(true)
                 .withCmd(commands).exec();
         final String[] objEnd = new String[1];
-        try {
 
-            ExecStartCmd execStartCmd = dockerClient.execStartCmd(execCreateCmdResponse.getId());
-            String in ="rock";
-            InputStream inputStream = new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8));
-            byte[] bytes = new byte[1024];
-            int count = 0;
-            int index = 0;
-            // Continue writing bytes until there are no more
-            while (count == 0) {
-                if (index == count) {
-                    count = inputStream.read(bytes);
-                    index = 0;
-                }
+        ExecStartCmd execStartCmd = dockerClient.execStartCmd(execCreateCmdResponse.getId());
+        execStartCmd.exec(new ResultCallback.Adapter<>(){
+            @Override
+            public void onNext(Frame object) {
+                System.out.println("[Container指令运行中]");
+                objEnd[0] = object.toString();
+                System.out.println(object.toString());
             }
-            //运行命令
-            execStartCmd.exec(new ResultCallback.Adapter<>(){
-                @Override
-                public void onNext(Frame object) {
-                    System.out.println("[Container指令运行中]");
-                    objEnd[0] = object.toString();
-                    System.out.println(object.toString());
-                }
 
-                @Override
-                public void onComplete() {
-                    System.out.println("[一条Container指令运行结束]");
-                    super.onComplete();
-                }
-
-            }).awaitCompletion(60, TimeUnit.SECONDS);
-
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
+            @Override
+            public void onComplete() {
+                System.out.println("[一条Container指令运行结束]");
+                super.onComplete();
+            }
+        }).awaitCompletion(60, TimeUnit.SECONDS);
         return objEnd[0];
     }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="bar-wrapper">
-    <div class="left-box">
+    <div class="left-box hidden-sm-and-down">
       <img class="logo-img" src="@/assets/logo/logo-32.png" />
       <span class="">在线编程沙盒</span>
     </div>
@@ -12,7 +12,11 @@
         @focus="searchFocus"
         @blur="searchBlur"
       >
-        <i slot="prefix" class="el-input__icon el-icon-search" :class="{iHover:isHover}"></i>
+        <i
+          slot="prefix"
+          class="el-input__icon el-icon-search"
+          :class="{ iHover: isHover }"
+        ></i>
       </el-input>
     </div>
   </div>
@@ -104,6 +108,12 @@ export default {
   }
   to {
     width: 100%;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .bar-wrapper {
+    justify-content: center;
   }
 }
 </style>

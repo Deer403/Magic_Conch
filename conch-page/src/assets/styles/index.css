@@ -2,8 +2,11 @@
   font-family: "logofont";
   font-weight: normal;
   font-style: normal;
-  src: url("../fonts/logo.ttf") format('truetype');
+  src: url("../fonts/logo.ttf") format("truetype");
 }
-html,body,div#app{
-  height: 100%;
+html,
+body,
+div#app {
+  height: 100vh;
+  width: 100vw;
 }

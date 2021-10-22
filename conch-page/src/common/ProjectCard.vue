@@ -45,7 +45,7 @@ export default {
 .card-wrapper {
   display: flex;
   flex-direction: column;
-  width: 230px;
+  width: 100%;
   height: 85px;
   border-radius: 2px;
   box-shadow: 0 0 0 2px rgb(174 221 255 / 10%);

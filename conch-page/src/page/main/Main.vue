@@ -2,41 +2,57 @@
   <div class="main-wrapper">
     <MainBar />
     <div class="content-box">
-      <div class="content-title">
+      <div class="content-title hidden-sm-and-down">
         <span>一个快速开发的编程沙盒</span>
         <span>减少您的配置成本</span>
         <span class="title-time">即刻生成</span>
       </div>
-      <div class="content-info">
+      <div class="content-info hidden-sm-and-down">
         <span>项目之间都是独立的，安全，快速得到一个满意的项目原型</span>
       </div>
       <div class="project-wrapper">
         <div class="project-box">
           <span class="project-title">热门语言</span>
           <div class="project-card-list">
-            <project-card
-              v-for="lang in hotLangList"
-              :key="lang.cardName"
-              hot="true"
-              :imgSrc="lang.imgSrc"
-              :cardName="lang.cardName"
-              :cardInfo="lang.cardInfo"
-              @click="clickCard"
-            />
+            <el-row :gutter="20">
+              <el-col
+                class="project-card-wrapper"
+                :xs="24"
+                :lg="5"
+                v-for="lang in hotLangList"
+                :key="lang.cardName"
+              >
+                <project-card
+                  hot="true"
+                  :imgSrc="lang.imgSrc"
+                  :cardName="lang.cardName"
+                  :cardInfo="lang.cardInfo"
+                  @click="clickCard"
+                />
+              </el-col>
+            </el-row>
           </div>
         </div>
         <div class="project-box">
           <span class="project-title">可用语言</span>
           <div class="project-card-list">
-            <project-card
-              v-for="lang in LangList"
-              :info="lang.info"
-              :key="lang.cardName"
-              :imgSrc="lang.imgSrc"
-              :cardName="lang.cardName"
-              :cardInfo="lang.cardInfo"
-              @click="clickCard"
-            />
+            <el-row :gutter="20">
+              <el-col
+                class="project-card-wrapper"
+                :xs="24"
+                :lg="5"
+                v-for="lang in LangList"
+                :info="lang.info"
+                :key="lang.cardName"
+              >
+                <project-card
+                  :imgSrc="lang.imgSrc"
+                  :cardName="lang.cardName"
+                  :cardInfo="lang.cardInfo"
+                  @click="clickCard"
+                />
+              </el-col>
+            </el-row>
           </div>
         </div>
       </div>
@@ -105,7 +121,7 @@ export default {
           imgSrc: require("@/assets/lang/go.png"),
         },
         {
-          info:"Beta",
+          info: "Beta",
           cardName: "Vue",
           cardInfo: "渐进式框架",
           imgSrc: require("@/assets/lang/vue.png"),
@@ -123,14 +139,18 @@ export default {
 
 <style scoped>
 .main-wrapper {
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(to right bottom, #0d1d3a 0, #1a2f55 52%, #365a83);
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .content-box {
-  width: 1200px;
+  /* width: 1200px; */
   margin: 0 auto;
   color: #fff;
   padding-top: 50px;
+  width: 65%;
 }
 .content-title {
   display: flex;
@@ -152,18 +172,24 @@ export default {
   margin-top: 50px;
 }
 
+.project-card-wrapper {
+  margin-bottom: 15px;
+}
+
 .project-box {
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .project-card-list {
-  display: flex;
+  /* display: flex; */
   margin-top: 10px;
-  flex-wrap: wrap;
-  width: 1000px;
-  row-gap: 20px;
+  /* flex-wrap: wrap; */
+  /* width: 1000px; */
+  /* row-gap: 20px; */
 }
 
 .project-title {

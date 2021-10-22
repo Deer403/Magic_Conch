@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="codepage-wrapper">
     <CodeBar
       :codeType="codeType"
       @clickRunCode="clickRunCode"
       @changeType="changeType"
       @reset="resetCode"
     />
-    <CodeElement :code="code" :type="type" />
-    <div class="title">
+    <CodeElement :code="code" :type="type" :dark="getTheme" />
+    <div class="title" v-bind:class="{ dark: getTheme }">
       <span>输出</span>
     </div>
     <CodeContent ref="CodeContent" />
@@ -21,9 +21,10 @@
       ></el-button>
       <el-button
         type="primary"
-        icon="el-icon-moon"
+        :icon="icon"
         size="medium"
         circle
+        @click="moonMode"
       ></el-button>
     </div>
   </div>
@@ -41,7 +42,7 @@ import CodeTemp from "@/utils/template";
 export default {
   name: "CodePage",
   computed: {
-    ...mapGetters(["getCode"]),
+    ...mapGetters(["getCode", "getTheme"]),
   },
   components: {
     CodeBar,
@@ -53,6 +54,7 @@ export default {
       codeType: [],
       code: "",
       type: "",
+      icon: "el-icon-moon",
     };
   },
   mounted() {
@@ -93,18 +95,35 @@ export default {
       }
       this.type = newType;
     },
-    returnHome(){
-      this.$router.push("/")
-    }
+    returnHome() {
+      this.$router.push("/");
+    },
+    moonMode() {
+      if (!this.getTheme) {
+        this.$store.commit("changeDark");
+        this.icon = "el-icon-sunny";
+      } else {
+        this.$store.commit("changeLight");
+        this.icon = "el-icon-moon";
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
+.codepage-wrapper {
+  height: 100vh;
+}
+.dark {
+  background: #0f192a !important;
+  color: #fff;
+}
 .title {
   height: 40px;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   padding-left: 5px;
   padding-top: 5px;
 }
@@ -117,7 +136,7 @@ export default {
   bottom: 30px;
   right: 20px;
 }
-.moon-wrapper>button{
+.moon-wrapper > button {
   margin-bottom: 5px;
 }
 </style>

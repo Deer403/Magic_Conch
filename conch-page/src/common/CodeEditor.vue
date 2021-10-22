@@ -10,22 +10,30 @@
 </template>
 
 <script>
-
 //引入编辑器设置
-import "@/utils/cm-setting.js"
+import "@/utils/cm-setting.js";
 
 import { codemirror } from "vue-codemirror";
 import { TypeMap } from "@/utils/template";
 
 export default {
   name: "CodeEditor",
+  mounted() {},
   props: {
     code: String,
     type: String,
+    dark: { type: Boolean, default: false },
   },
   watch: {
     type: function (val) {
-      this.$set(this.cmOptions,"mode",TypeMap[val])
+      this.$set(this.cmOptions, "mode", TypeMap[val]);
+    },
+    dark: function (val) {
+      if (val) {
+        this.$set(this.cmOptions, "theme", "midnight");
+      } else {
+        this.$set(this.cmOptions, "theme", "idea");
+      }
     },
   },
   components: {

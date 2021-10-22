@@ -5,6 +5,7 @@
       justify="space-between"
       align="middle"
       class="bar-container"
+      v-bind:class="{ dark: getTheme }"
     >
       <el-col :xs="10" :md="3">
         <el-select
@@ -45,7 +46,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "CodeBar",
-  computed: { ...mapGetters(["getCode", "getStatus"]) },
+  computed: { ...mapGetters(["getCode", "getStatus", "getTheme"]) },
   props: {
     codeType: Array,
   },
@@ -108,10 +109,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.dark {
+  background: #0f192a;
+}
 .bar-wrapper {
   height: 40px;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ccc;
+  // box-sizing: border-box;
   // flex-direction: row;
 }
 

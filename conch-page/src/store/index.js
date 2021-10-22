@@ -17,6 +17,10 @@ export default new Vuex.Store({
       state.code = newCode;
       state.codingStatus = true;
     },
+    reset(state){
+      state.code = "";
+      state.codingStatus = false;
+    }
   },
   actions: {},
   modules: {},

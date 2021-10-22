@@ -75,7 +75,8 @@ export default {
   align-items: center;
   font-size: 24px;
   color: #fff;
-  font-family: "logofont";
+  /* font-family: "logofont"; */
+  font-family: "Microsoft YaHei";
 }
 
 .hover {

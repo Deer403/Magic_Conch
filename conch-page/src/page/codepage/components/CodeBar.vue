@@ -24,11 +24,15 @@
         </el-select>
       </el-col>
       <el-col :xs="12" :md="4" class="bar-btns">
-        <el-button type="warning" size="small" plain>重置</el-button>
+        <el-button type="warning" size="small" @click="reset" plain
+          >重置</el-button
+        >
         <el-button type="primary" size="small" @click="runCode" plain
           >运行</el-button
         >
-        <el-button type="success" size="small" plain>提交</el-button>
+        <el-button type="success" size="small" @click="uploadCode" plain
+          >提交</el-button
+        >
       </el-col>
     </el-row>
   </div>
@@ -56,8 +60,20 @@ export default {
     };
   },
   methods: {
+    reset() {
+      this.$store.commit("reset");
+      localStorage.clear();
+      console.log(this.getCode, this.getStatus);
+      this.type = "";
+      this.lastType = "";
+      this.$emit("reset");
+    },
     runCode() {
-      this.$emit("clickRunCode");
+      if (this.getCode && this.type) {
+        this.$emit("clickRunCode");
+      } else {
+        this.errorMsg("运行失败，请输入代码并选择好语言类型");
+      }
     },
     changeType(newType) {
       if (this.getStatus) {
@@ -65,6 +81,27 @@ export default {
       }
       this.$emit("changeType", newType);
       this.lastType = newType;
+    },
+    uploadCode() {
+      if (this.getCode && this.type) {
+        this.successMsg("上传成功！");
+      } else {
+        this.errorMsg("上传失败，请输入代码并选择好语言类型");
+      }
+    },
+    successMsg(msg) {
+      this.$message({
+        showClose: true,
+        message: msg,
+        type: "success",
+      });
+    },
+    errorMsg(msg) {
+      this.$message({
+        showClose: true,
+        message: msg,
+        type: "warning",
+      });
     },
   },
 };

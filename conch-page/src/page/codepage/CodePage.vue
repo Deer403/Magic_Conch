@@ -4,12 +4,28 @@
       :codeType="codeType"
       @clickRunCode="clickRunCode"
       @changeType="changeType"
+      @reset="resetCode"
     />
     <CodeElement :code="code" :type="type" />
     <div class="title">
       <span>输出</span>
     </div>
     <CodeContent ref="CodeContent" />
+    <div class="moon-wrapper">
+      <el-button
+        type="primary"
+        icon="el-icon-arrow-left"
+        size="medium"
+        circle
+        @click="returnHome"
+      ></el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-moon"
+        size="medium"
+        circle
+      ></el-button>
+    </div>
   </div>
 </template>
 
@@ -43,6 +59,10 @@ export default {
     this.getType();
   },
   methods: {
+    resetCode() {
+      this.code = "";
+      this.type = "";
+    },
     getType() {
       getCodeType().then((res) => {
         // console.log(res);
@@ -73,6 +93,9 @@ export default {
       }
       this.type = newType;
     },
+    returnHome(){
+      this.$router.push("/")
+    }
   },
 };
 </script>
@@ -84,5 +107,17 @@ export default {
   border-bottom: 1px solid #ccc;
   padding-left: 5px;
   padding-top: 5px;
+}
+.moon-wrapper {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-end;
+  bottom: 30px;
+  right: 20px;
+}
+.moon-wrapper>button{
+  margin-bottom: 5px;
 }
 </style>

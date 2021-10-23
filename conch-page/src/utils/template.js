@@ -39,6 +39,7 @@ export default {
 };
 
 export const TypeMap = {
+  C: "text/x-csrc",
   CPP: "text/x-c++src",
   JAVA: "text/x-java",
   GOLANG: "text/x-go",

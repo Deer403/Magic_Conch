@@ -42,14 +42,14 @@ export default {
   data: () => {
     return {
       cmOptions: {
-        tabSize: 4,
-        mode: "",
-        theme: "idea",
-        lineNumbers: true,
-        line: true,
-        matchBrackets: true,
-        smartIndent: true,
-        styleActiveLine: true,
+        tabSize: 4, //tan缩进数
+        mode: "", //语法高亮的类型
+        theme: "idea", //主题名字
+        lineNumbers: true, //显示行数
+        // line: true, //显示行数
+        matchBrackets: true, // 括号匹配
+        smartIndent: true, // 智能缩进
+        styleActiveLine: true, //设置光标所在行高亮t
         autoCloseBrackets: true, // 输入和退格时成对
         autoRefresh: true, // 自动刷新
       },

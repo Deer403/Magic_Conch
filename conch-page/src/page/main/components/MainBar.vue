@@ -18,13 +18,18 @@
           :class="{ iHover: isHover }"
         ></i>
       </el-input>
+      <div class="login-btn" @click="toLoginPage" v-if="!getLogin">登录</div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "MainBar",
+  computed: {
+    ...mapGetters(["getLogin"]),
+  },
   data: function () {
     return {
       isHover: false,
@@ -38,6 +43,9 @@ export default {
     searchBlur() {
       this.isHover = false;
       // this.$refs.searchRef.clear();
+    },
+    toLoginPage() {
+      this.$router.push("/login");
     },
   },
 };
@@ -65,7 +73,7 @@ export default {
 
 .bar-wrapper {
   height: 84px;
-  background: #122445;
+  /* background: #122445; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -100,6 +108,8 @@ export default {
 
 .right-box {
   padding-right: 30px;
+  display: flex;
+  align-items: center;
 }
 
 @keyframes search {
@@ -115,5 +125,20 @@ export default {
   .bar-wrapper {
     justify-content: center;
   }
+}
+
+.login-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  height: 40px;
+  max-width: 85px;
+  min-width: 85px;
+  background: rgb(13, 29, 58);
+  color: rgba(174, 221, 255, 0.8);
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
 }
 </style>

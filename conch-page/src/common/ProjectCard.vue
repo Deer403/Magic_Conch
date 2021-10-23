@@ -2,7 +2,7 @@
   <div class="card-wrapper" @click="cardClick">
     <div class="card-info-wrapper">
       <div class="card-info" v-if="info || hot">
-        <span>{{getInfo()}}</span>
+        <span>{{ getInfo() }}</span>
       </div>
     </div>
     <div class="card-content">
@@ -30,13 +30,13 @@ export default {
     cardClick() {
       this.$emit("click");
     },
-    getInfo(){
-      if(this.info){
-        return this.info
-      }else if(this.hot){
-        return "热门"
+    getInfo() {
+      if (this.info) {
+        return this.info;
+      } else if (this.hot) {
+        return "热门";
       }
-    }
+    },
   },
 };
 </script>
@@ -51,6 +51,11 @@ export default {
   box-shadow: 0 0 0 2px rgb(174 221 255 / 10%);
   margin-right: 20px;
   cursor: pointer;
+}
+
+.card-wrapper:hover {
+  box-shadow: 0 0 0 2px #26ffca;
+  background-color: #0d1d3a;
 }
 
 .card-info-wrapper {

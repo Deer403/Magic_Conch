@@ -33,9 +33,9 @@ export default {
 </script>
 
 <style scoped>
-.dark{
+/* .dark{
   
-}
+} */
 .content-wrapper {
   height: 100%;
   padding-top: 10px;

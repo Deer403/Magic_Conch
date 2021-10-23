@@ -8,11 +8,13 @@ export default new Vuex.Store({
     code: null,
     codingStatus: false,
     isDark: false,
+    isLogin: false,
   },
   getters: {
     getCode: (state) => state.code,
     getStatus: (state) => state.codingStatus,
     getTheme: (state) => state.isDark,
+    getLogin: (state) => state.isLogin,
   },
   mutations: {
     changeCode(state, newCode) {
@@ -23,12 +25,18 @@ export default new Vuex.Store({
       state.code = "";
       state.codingStatus = false;
     },
-    changeDark(state){
-      state.isDark = true
+    changeDark(state) {
+      state.isDark = true;
     },
-    changeLight(state){
-      state.isDark = false
-    }
+    changeLight(state) {
+      state.isDark = false;
+    },
+    login(state) {
+      state.isLogin = true;
+    },
+    logout(state) {
+      state.isLogin = false;
+    },
   },
   actions: {},
   modules: {},

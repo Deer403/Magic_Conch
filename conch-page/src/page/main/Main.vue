@@ -42,13 +42,13 @@
                 :xs="24"
                 :lg="5"
                 v-for="lang in LangList"
-                :info="lang.info"
                 :key="lang.cardName"
               >
                 <project-card
                   :imgSrc="lang.imgSrc"
                   :cardName="lang.cardName"
                   :cardInfo="lang.cardInfo"
+                  :info="lang.info"
                   @click="clickCard"
                 />
               </el-col>

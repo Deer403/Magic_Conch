@@ -18,19 +18,9 @@ public class RunCodeService {
     private static AtomicLong nextLong = new AtomicLong(System.currentTimeMillis());
 
     //连接docker运行各类编程语言程序
-    public ProcessResult runCodeDocker(LanguageDetails type,String code) throws IOException, InterruptedException {
-        //1.首先需要将前端传进来的代码保存到本地
-        //获取系统缓存文件位置
-        String tmpDir = System.getProperty("java.io.tmpdir");
-        // 随机文件夹的名字
-        File pwd = Paths.get(tmpDir, String.format("%016x", nextLong.incrementAndGet())).toFile();
-        // 新建文件夹
-        pwd.mkdirs();
+    public ProcessResult runCodeDocker(LanguageDetails type,String code){
+        File pwd = saveFile(type,code);
 
-        //将传入的代码写入到文件中
-        try (Writer writer = new BufferedWriter(new FileWriter(new File(pwd, type.getFileName()), Charset.defaultCharset()))) {
-            writer.write(code);
-        }
         //创建docker连接
         DockerJavaClient dockerJavaClient = new DockerJavaClient();
         DockerClient dockerClient = dockerJavaClient.getDockerClient();
@@ -71,4 +61,22 @@ public class RunCodeService {
         return  new ProcessResult(1,frames);
     }
 
+    //将代码保存到本地文件中
+    public File saveFile(LanguageDetails type,String code){
+        //1.首先需要将前端传进来的代码保存到本地
+        //获取系统缓存文件位置
+        String tmpDir = System.getProperty("java.io.tmpdir");
+        // 随机文件夹的名字
+        File pwd = Paths.get(tmpDir, String.format("%016x", nextLong.incrementAndGet())).toFile();
+        // 新建文件夹
+        pwd.mkdirs();
+
+        //将传入的代码写入到文件中
+        try (Writer writer = new BufferedWriter(new FileWriter(new File(pwd, type.getFileName()), Charset.defaultCharset()))) {
+            writer.write(code);
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        return pwd;
+    }
 }

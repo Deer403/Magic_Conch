@@ -71,9 +71,8 @@ public class DockerJavaClient {
         dockerClient.stopContainerCmd(containerId).exec();
         dockerClient.removeContainerCmd(containerId).exec();
     }
-
     //在容器中执行一条指令
-    public String runCmd(DockerClient dockerClient, String containerId, String[] commands) throws IOException, InterruptedException {
+    public String runCmd(DockerClient dockerClient, String containerId, String[] commands)  {
         //创建指令
         ExecCreateCmdResponse execCreateCmdResponse = dockerClient.execCreateCmd(containerId)
                 .withAttachStdout(true)
@@ -83,20 +82,24 @@ public class DockerJavaClient {
         final String[] objEnd = new String[1];
 
         ExecStartCmd execStartCmd = dockerClient.execStartCmd(execCreateCmdResponse.getId());
-        execStartCmd.exec(new ResultCallback.Adapter<>(){
-            @Override
-            public void onNext(Frame object) {
-                System.out.println("[Container指令运行中]");
-                objEnd[0] = object.toString();
-                System.out.println(object.toString());
-            }
+        try {
+            execStartCmd.exec(new ResultCallback.Adapter<>(){
+                @Override
+                public void onNext(Frame object) {
+                    System.out.println("[Container指令运行中]");
+                    objEnd[0] = object.toString();
+                    System.out.println(object);
+                }
 
-            @Override
-            public void onComplete() {
-                System.out.println("[一条Container指令运行结束]");
-                super.onComplete();
-            }
-        }).awaitCompletion(60, TimeUnit.SECONDS);
+                @Override
+                public void onComplete() {
+                    System.out.println("[一条Container指令运行结束]");
+                    super.onComplete();
+                }
+            }).awaitCompletion(60, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
         return objEnd[0];
     }
 

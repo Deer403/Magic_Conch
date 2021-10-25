@@ -1,5 +1,7 @@
 <template>
-  <div class="ce-wrapper"><CodeEditor :code="code" :type="type" /></div>
+  <div class="ce-wrapper">
+    <CodeEditor :dark="dark" :code="code" :type="type" />
+  </div>
 </template>
 
 <script>
@@ -10,6 +12,7 @@ export default {
   props: {
     code: String,
     type: String,
+    dark: { type: Boolean, default: false },
   },
   components: {
     CodeEditor,

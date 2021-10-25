@@ -1,5 +1,5 @@
 <template>
-  <div class="content-wrapper">
+  <div v-bind:class="{ dark: getTheme }" class="content-wrapper">
     <div v-for="(msg, index) in msgs" :key="index" class="msg-item">
       <span>console>></span>
       <span>{{ msg }}</span>
@@ -8,8 +8,11 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "CodeContent",
+  computed: { ...mapGetters(["getTheme"]) },
   data: () => {
     return {
       msgs: [],
@@ -29,8 +32,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+/* .dark{
+  
+} */
 .content-wrapper {
+  height: 100%;
   padding-top: 10px;
   padding-left: 20px;
   font-family: Monospace !important;

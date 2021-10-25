@@ -1,18 +1,38 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import CodePage from "@/page/codepage/CodePage";
+import Main from "@/page/main/Main";
+import Login from "@/page/login/Login";
 
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/code",
     name: "CodePage",
     component: CodePage,
     meta: {
       // 页面标题title
       title: "编程盒子",
+    },
+  },
+  {
+    path: "/",
+    name: "MainPage",
+    component: Main,
+    meta: {
+      // 页面标题title
+      title: "编程盒子",
+    },
+  },
+  {
+    path: "/login",
+    name: "LoginPage",
+    component: Login,
+    meta: {
+      // 页面标题title
+      title: "登录页面",
     },
   },
 ];

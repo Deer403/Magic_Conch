@@ -11,14 +11,16 @@
 
 <script>
 //引入编辑器设置
-import "@/utils/cm-setting.js";
+import "@/plugins/codemirror.js";
 
 import { codemirror } from "vue-codemirror";
 import { TypeMap } from "@/utils/template";
 
 export default {
   name: "CodeEditor",
-  mounted() {},
+  components: {
+    codemirror,
+  },
   props: {
     code: String,
     type: String,
@@ -35,9 +37,6 @@ export default {
         this.$set(this.cmOptions, "theme", "idea");
       }
     },
-  },
-  components: {
-    codemirror,
   },
   data: () => {
     return {

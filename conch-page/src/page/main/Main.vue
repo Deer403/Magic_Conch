@@ -27,7 +27,7 @@
                   :imgSrc="lang.imgSrc"
                   :cardName="lang.cardName"
                   :cardInfo="lang.cardInfo"
-                  @click="clickCard"
+                  @click="clickCard(lang.codeType)"
                 />
               </el-col>
             </el-row>
@@ -49,7 +49,7 @@
                   :cardName="lang.cardName"
                   :cardInfo="lang.cardInfo"
                   :info="lang.info"
-                  @click="clickCard"
+                  @click="clickCard(lang.codeType)"
                 />
               </el-col>
             </el-row>
@@ -77,61 +77,71 @@ export default {
           cardName: "Python",
           cardInfo: "解释型语言",
           imgSrc: require("@/assets/lang/python.png"),
+          codeType: "PYTHON3",
         },
         {
           cardName: "Java",
           cardInfo: "优秀的跨平台语言",
           imgSrc: require("@/assets/lang/java.png"),
+          codeType: "JAVA",
         },
         {
           cardName: "C语言",
           cardInfo: "老而稳定",
           imgSrc: require("@/assets/lang/C.png"),
+          codeType: "C",
         },
         {
           cardName: "Golang",
           cardInfo: "简洁、快速",
           imgSrc: require("@/assets/lang/go.png"),
+          codeType: "Go",
         },
       ],
       LangList: [
         {
-          cardName: "Node.js",
-          cardInfo: "服务端的JavaScript",
-          imgSrc: require("@/assets/lang/node.png"),
+          cardName: "C++",
+          cardInfo: "多种编程思想的语言",
+          imgSrc: require("@/assets/lang/c++.png"),
+          codeType:"CPP"
         },
         {
           cardName: "Python",
           cardInfo: "解释型语言",
           imgSrc: require("@/assets/lang/python.png"),
+          codeType: "PYTHON3",
         },
         {
           cardName: "Java",
           cardInfo: "优秀的跨平台语言",
           imgSrc: require("@/assets/lang/java.png"),
+          codeType: "JAVA",
         },
         {
           cardName: "C语言",
           cardInfo: "老而稳定",
           imgSrc: require("@/assets/lang/C.png"),
+          codeType: "C",
         },
         {
           cardName: "Golang",
           cardInfo: "简洁、快速",
           imgSrc: require("@/assets/lang/go.png"),
+          codeType: "Go",
         },
-        {
-          info: "Beta",
-          cardName: "Vue",
-          cardInfo: "渐进式框架",
-          imgSrc: require("@/assets/lang/vue.png"),
-        },
+        // {
+        //   info: "Beta",
+        //   cardName: "Vue",
+        //   cardInfo: "渐进式框架",
+        //   imgSrc: require("@/assets/lang/vue.png"),
+        // },
       ],
     };
   },
   methods: {
-    clickCard() {
-      this.$router.push("/code");
+    clickCard(codeType) {
+      console.log(codeType);
+      // this.$router.push("/code");
     },
   },
 };
